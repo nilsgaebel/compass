@@ -1,0 +1,11 @@
+target/
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+*.class
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Local Claude Code settings (machine-specific, not shared)
+.claude/settings.local.json
