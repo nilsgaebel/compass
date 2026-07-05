@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-/**
- * Raw TheSportsDB league-table payload from {@code lookuptable.php}.
- */
+// Raw league-table payload (lookuptable.php).
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record TableResponse(
         @JsonProperty("table") List<TablePayload> table

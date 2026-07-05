@@ -1,11 +1,6 @@
 package com.nilsgaebel.sports.domain;
 
-/**
- * Immutable domain representation of a single match/event.
- * <p>
- * Used for both upcoming and past fixtures of a team. Scores are nullable
- * because a not-yet-played event carries no result.
- */
+// Scores are null for a fixture that hasn't been played yet.
 public record Event(
         String id,
         String name,

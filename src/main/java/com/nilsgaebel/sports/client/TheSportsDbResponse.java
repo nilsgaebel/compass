@@ -5,14 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-/**
- * DTOs mirroring the raw TheSportsDB team payload.
- * <p>
- * These live in the client layer on purpose. Only the {@code SportsApiClient}
- * and the mapping code touch them; the rest of the app works with the clean
- * {@link com.nilsgaebel.sports.domain.Team} record instead. {@code @JsonIgnoreProperties}
- * keeps us resilient to the many fields we don't care about.
- */
+// Raw TheSportsDB team payload (searchteams.php / lookupteam.php).
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record TheSportsDbResponse(
         @JsonProperty("teams") List<TeamPayload> teams

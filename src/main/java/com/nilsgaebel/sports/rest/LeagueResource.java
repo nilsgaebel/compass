@@ -1,6 +1,5 @@
 package com.nilsgaebel.sports.rest;
 
-import com.nilsgaebel.sports.domain.Standing;
 import com.nilsgaebel.sports.service.LeagueService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -11,12 +10,6 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.util.List;
-
-/**
- * HTTP boundary for league resources. Thin by design: validates input,
- * delegates to {@link LeagueService}, and shapes the response.
- */
 @Path("/leagues")
 @Produces(MediaType.APPLICATION_JSON)
 public class LeagueResource {
@@ -28,23 +21,19 @@ public class LeagueResource {
         this.leagueService = leagueService;
     }
 
-    /**
-     * GET /leagues/{id}/table?season=2020-2021 — the league table for a season.
-     */
     @GET
     @Path("/{id}/table")
     public Response table(@PathParam("id") String id, @QueryParam("season") String season) {
         if (id == null || id.isBlank()) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Path parameter 'id' is required")
-                    .build();
+            return badRequest("Path parameter 'id' is required");
         }
         if (season == null || season.isBlank()) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Query parameter 'season' is required (e.g. 2020-2021)")
-                    .build();
+            return badRequest("Query parameter 'season' is required (e.g. 2020-2021)");
         }
-        List<Standing> table = leagueService.table(id, season);
-        return Response.ok(table).build();
+        return Response.ok(leagueService.table(id, season)).build();
+    }
+
+    private static Response badRequest(String message) {
+        return Response.status(Response.Status.BAD_REQUEST).entity(message).build();
     }
 }

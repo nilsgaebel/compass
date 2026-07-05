@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-/**
- * Raw TheSportsDB roster payload from {@code lookup_all_players.php}.
- */
+// Raw roster payload (lookup_all_players.php).
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record PlayerResponse(
         @JsonProperty("player") List<PlayerPayload> player

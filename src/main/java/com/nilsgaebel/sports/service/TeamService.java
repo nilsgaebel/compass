@@ -1,11 +1,9 @@
 package com.nilsgaebel.sports.service;
 
-import com.nilsgaebel.sports.client.EventMapper;
 import com.nilsgaebel.sports.client.EventResponse;
-import com.nilsgaebel.sports.client.PlayerMapper;
 import com.nilsgaebel.sports.client.PlayerResponse;
 import com.nilsgaebel.sports.client.SportsApiClient;
-import com.nilsgaebel.sports.client.TeamMapper;
+import com.nilsgaebel.sports.client.SportsMapper;
 import com.nilsgaebel.sports.client.TheSportsDbResponse;
 import com.nilsgaebel.sports.domain.Event;
 import com.nilsgaebel.sports.domain.Player;
@@ -17,88 +15,55 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Application service: holds the business logic and orchestrates the
- * collaborators (remote client + mappers). The REST resource stays thin and
- * delegates here, which keeps HTTP concerns and domain logic separated.
- */
+// Business logic for team-scoped data. All methods return empty (never null) when nothing matches.
 @ApplicationScoped
 public class TeamService {
 
-    private final SportsApiClient sportsApiClient;
-    private final TeamMapper teamMapper;
-    private final EventMapper eventMapper;
-    private final PlayerMapper playerMapper;
+    private final SportsApiClient client;
+    private final SportsMapper mapper;
 
     @Inject
-    public TeamService(@RestClient SportsApiClient sportsApiClient,
-                       TeamMapper teamMapper,
-                       EventMapper eventMapper,
-                       PlayerMapper playerMapper) {
-        this.sportsApiClient = sportsApiClient;
-        this.teamMapper = teamMapper;
-        this.eventMapper = eventMapper;
-        this.playerMapper = playerMapper;
+    public TeamService(@RestClient SportsApiClient client, SportsMapper mapper) {
+        this.client = client;
+        this.mapper = mapper;
     }
 
-    /**
-     * Search teams by name and return them as domain objects.
-     * Returns an empty list (never null) when the provider has no match.
-     */
     public List<Team> searchByName(String name) {
-        TheSportsDbResponse response = sportsApiClient.searchTeamsByName(name);
+        TheSportsDbResponse response = client.searchTeamsByName(name);
         if (response == null || response.teams() == null) {
             return List.of();
         }
-        return response.teams().stream()
-                .map(teamMapper::toDomain)
-                .toList();
+        return response.teams().stream().map(mapper::toTeam).toList();
     }
 
-    /**
-     * Look up a single team by its provider id. Empty when nothing matches.
-     */
     public Optional<Team> findById(String id) {
-        TheSportsDbResponse response = sportsApiClient.lookupTeamById(id);
+        TheSportsDbResponse response = client.lookupTeamById(id);
         if (response == null || response.teams() == null || response.teams().isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(teamMapper.toDomain(response.teams().get(0)));
+        return Optional.of(mapper.toTeam(response.teams().get(0)));
     }
 
-    /**
-     * The next scheduled fixtures for a team (empty list when none/unknown).
-     */
     public List<Event> nextEvents(String teamId) {
-        return mapFixtures(sportsApiClient.nextEvents(teamId));
+        return mapFixtures(client.nextEvents(teamId));
     }
 
-    /**
-     * The most recent results for a team (empty list when none/unknown).
-     */
     public List<Event> lastEvents(String teamId) {
-        return mapFixtures(sportsApiClient.lastEvents(teamId));
+        return mapFixtures(client.lastEvents(teamId));
     }
 
-    /**
-     * The full roster of a team (empty list when none/unknown).
-     */
     public List<Player> players(String teamId) {
-        PlayerResponse response = sportsApiClient.playersByTeam(teamId);
+        PlayerResponse response = client.playersByTeam(teamId);
         if (response == null || response.player() == null) {
             return List.of();
         }
-        return response.player().stream()
-                .map(playerMapper::toDomain)
-                .toList();
+        return response.player().stream().map(mapper::toPlayer).toList();
     }
 
     private List<Event> mapFixtures(EventResponse response) {
         if (response == null) {
             return List.of();
         }
-        return response.fixtures().stream()
-                .map(eventMapper::toDomain)
-                .toList();
+        return response.fixtures().stream().map(mapper::toEvent).toList();
     }
 }

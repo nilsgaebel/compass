@@ -5,20 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-/**
- * Raw TheSportsDB event payload.
- * <p>
- * The provider is inconsistent here: {@code eventsnext.php} nests fixtures
- * under {@code "events"} while {@code eventslast.php} uses {@code "results"}.
- * We map both and expose {@link #fixtures()} so callers never see the quirk.
- */
+// Raw event payload. eventsnext.php nests under "events", eventslast.php under "results".
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record EventResponse(
         @JsonProperty("events") List<EventPayload> events,
         @JsonProperty("results") List<EventPayload> results
 ) {
 
-    /** Whichever list the provider populated for this particular endpoint. */
+    // Whichever list this endpoint populated.
     public List<EventPayload> fixtures() {
         if (events != null) {
             return events;
