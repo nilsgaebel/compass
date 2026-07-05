@@ -8,8 +8,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
-    name: Build & Test
+  pipeline:
+    name: Build, Test & Publish
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -23,10 +23,17 @@ jobs:
           java-version: '21'
           cache: maven
 
-      - run: mvn -B verify
+      - name: Build
+        run: mvn -B -DskipTests package
 
-      # Image steps run only on pushes to main (not PRs), and only after
-      # tests pass. Tagged :latest so storage stays at one image.
+      - name: Test
+        run: mvn -B test
+
+      # Image is built on every run (validates the Dockerfile); the push
+      # happens only on pushes to main. Tagged :latest so storage stays at one image.
+      - name: Build image
+        run: docker build -f src/main/docker/Dockerfile.jvm -t ghcr.io/${{ github.repository }}:latest .
+
       - name: Log in to GHCR
         if: github.event_name == 'push'
         uses: docker/login-action@v3
@@ -35,11 +42,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push image
+      - name: Push image
         if: github.event_name == 'push'
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: src/main/docker/Dockerfile.jvm
-          push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+        run: docker push ghcr.io/${{ github.repository }}:latest
