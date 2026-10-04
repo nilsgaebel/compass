@@ -1,18 +1,18 @@
 # Compass
 
-Persönliches Dashboard im Browser: Sport, Tech- und KI-News, Finanzen.
-Läuft auf iPhone, Android und PC, betrieben auf Kubernetes.
+Personal dashboard in the browser: sports, tech and AI news, finance.
+Runs on iPhone, Android, and desktop, deployed on Kubernetes.
 
-Portfolio-Projekt mit Fokus auf Cloud und KI. Alles kostenlos und Open Source.
+Portfolio project focused on cloud and AI. Everything is free and open source.
 
-## Aufbau
+## Layout
 
 ```
-backend/    Quarkus-Service (Java 21), später inklusive React-Frontend
+backend/    Quarkus service (Java 21), later including the React frontend
 ```
 
-Geplant: `ai-service/` (Python, News-Clustering) und `deploy/` (Kustomize, ArgoCD).
+Planned: `ai-service/` (Python, news clustering) and `deploy/` (Kustomize, ArgoCD).
 
-## Start
+## Getting started
 
-Siehe [backend/README.md](backend/README.md).
+See [backend/README.md](backend/README.md).

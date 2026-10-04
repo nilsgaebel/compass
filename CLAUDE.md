@@ -1,72 +1,73 @@
 # Compass
 
-Persönliches Dashboard im Browser (Sport, Tech/KI-News, Finanzen), mobil und am PC.
-Portfolio-Projekt zum Lernen von Cloud und KI. Zeitbudget: 2–4 h/Woche.
+Personal dashboard in the browser (sports, tech/AI news, finance), for mobile and desktop.
+Portfolio project for learning cloud and AI. Time budget: 2–4 h/week.
 
-## Arbeitsweise
+## Working rules
 
-- Antworte auf Deutsch, direkt und praxisnah.
-- Minimaler Code: kleinste Änderung, die funktioniert. Keine überflüssigen Dateien,
-  Abstraktionen oder Planungsdokumente. Kommentare einzeilig und knapp.
-- Erkläre bei neuen Konzepten (React, Kubernetes) kurz, was neu ist und warum.
-- Eine Aufgabe = ein Branch = ein Pull Request. `main` bleibt lauffähig.
-- Pro Endpunkt mindestens ein Test.
-- Nichts löschen, umbenennen oder pushen ohne ausdrückliche Freigabe. Ausnahme:
-  Gemergte Branches dürfen lokal gelöscht werden, GitHub löscht sie automatisch.
-- Harte Randbedingung: Alles, was Compass im Betrieb braucht, ist kostenlos und
-  möglichst Open Source. Keine kostenpflichtigen Cloud-Dienste.
+- Everything in the repo is in English: code, comments, docs, UI text, commit
+  messages, and pull requests. Chat replies are in German, direct and practical.
+- Minimal code: the smallest change that works. No unnecessary files, abstractions,
+  or planning documents. Comments are one line and concise.
+- For new concepts (React, Kubernetes), briefly explain what is new and why.
+- One task = one branch = one pull request. `main` always stays runnable.
+- At least one test per endpoint.
+- Do not delete, rename, or push anything without explicit approval. Exception:
+  merged branches may be deleted locally; GitHub deletes them automatically.
+- Hard constraint: everything Compass needs at runtime is free and preferably
+  open source. No paid cloud services.
 
-## Struktur
+## Structure
 
 ```
 backend/              Quarkus 3, Java 21, Maven
-  src/main/webui/     React-Frontend über Quinoa (geplant)
-ai-service/           Python, FastAPI, News-Clustering (geplant)
-deploy/               Kustomize mit base/ und overlays/local, ArgoCD (geplant)
+  src/main/webui/     React frontend via Quinoa (planned)
+ai-service/           Python, FastAPI, news clustering (planned)
+deploy/               Kustomize with base/ and overlays/local, ArgoCD (planned)
 ```
 
 ## Backend
 
-Package `com.compass.<modul>`, bisher nur `sports`. Jedes Modul hat
-dieselben Schichten, Abhängigkeiten zeigen nach innen:
+Package `com.compass.<module>`, so far only `sports`. Every module has the same
+layers, dependencies point inward:
 
-- `rest/` – HTTP-Grenze, dünn, validiert und delegiert
-- `service/` – Geschäftslogik, orchestriert Client und Mapper
-- `client/` – typisierter REST-Client, DTOs der externen API, Mapper
-- `domain/` – unveränderliche Records, kennen weder HTTP noch die externe API
+- `rest/` – HTTP boundary, thin, validates and delegates
+- `service/` – business logic, orchestrates client and mapper
+- `client/` – typed REST client, DTOs of the external API, mapper
+- `domain/` – immutable records, know nothing about HTTP or the external API
 
-Der Mapper ist der Anti-Corruption-Layer: Nur er kennt die Feldnamen des Anbieters.
-Neuer Endpunkt: Domain-Record → DTO → Client-Methode → Mapper → Service → Resource → Test.
+The mapper is the anti-corruption layer: only it knows the provider's field names.
+New endpoint: domain record → DTO → client method → mapper → service → resource → test.
 
-Datenquelle Sport: TheSportsDB v1, freier Key `3`, 30 Anfragen/Minute.
-`eventslast.php` liefert im freien Tarif teils nur Heimspiele, Listen sind gedeckelt.
+Sports data source: TheSportsDB v1, free key `3`, 30 requests/minute.
+On the free tier `eventslast.php` sometimes returns home games only, and lists are capped.
 
-Befehle (in `backend/`):
+Commands (in `backend/`):
 
-- `mvn quarkus:dev` – Dev-Modus, Swagger UI unter `/q/swagger-ui`
-- `mvn verify` – Build und Tests
+- `mvn quarkus:dev` – dev mode, Swagger UI at `/q/swagger-ui`
+- `mvn verify` – build and tests
 
-## Frontend (geplant)
+## Frontend (planned)
 
 React, TypeScript, Vite, Tailwind, shadcn/ui, TanStack Query, React Router, Recharts,
-vite-plugin-pwa. Mobil zuerst: unten Navigation, am PC Seitenleiste. Startseite
-„Heute“ mit Kacheln. Erst Clickdummy mit Mock-Daten, dann Anschluss ans Backend.
+vite-plugin-pwa. Mobile first: bottom navigation, sidebar on desktop. Home page
+"Today" with tiles. Click dummy with mock data first, then connect to the backend.
 
-## Betrieb (geplant)
+## Operations (planned)
 
-k3d lokal, Kustomize, ArgoCD, Sealed Secrets, GitHub Actions mit Images auf ghcr.io.
-Später k3s auf einer VM. Konfiguration nur über Umgebungsvariablen, Daten nur in
-PostgreSQL, jeder Dienst mit Health-Probes und Ressourcen-Limits.
+k3d locally, Kustomize, ArgoCD, Sealed Secrets, GitHub Actions with images on ghcr.io.
+Later k3s on a VM. Configuration via environment variables only, data in PostgreSQL
+only, every service with health probes and resource limits.
 
-## Vorbereitung auf mehrere Nutzer
+## Preparing for multiple users
 
-Nutzerdaten (Favoriten, Watchlist) hängen an einer Nutzer-ID. Kacheln sind
-eigenständige Module. Feeds und Themen sind Daten, kein Code.
+User data (favorites, watchlist) is tied to a user ID. Tiles are independent
+modules. Feeds and topics are data, not code.
 
-## Etappen
+## Milestones
 
-1. Sport-Kachel mit React-Frontend, Favoriten in PostgreSQL
-2. Kubernetes und GitOps
-3. KI-Service: Clustering von Sport- und Tech/KI-Headlines
-4. Finanz-Kachel
-5. Cloud-VM, Domain, TLS, Login
+1. Sports tile with React frontend, favorites in PostgreSQL
+2. Kubernetes and GitOps
+3. AI service: clustering of sports and tech/AI headlines
+4. Finance tile
+5. Cloud VM, domain, TLS, login
