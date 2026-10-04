@@ -4,7 +4,7 @@ REST service behind Compass. Currently serves sports data from TheSportsDB.
 
 ## Architecture
 
-Layers per module (`com.nilsgaebel.compass.sports`), dependencies point inward:
+Layers per module (`com.compass.sports`), dependencies point inward:
 
 ```
 rest/      HTTP boundary. Thin. Validates input, shapes responses.

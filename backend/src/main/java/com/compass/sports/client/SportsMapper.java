@@ -1,10 +1,10 @@
-package com.nilsgaebel.compass.sports.client;
+package com.compass.sports.client;
 
-import com.nilsgaebel.compass.sports.domain.Event;
-import com.nilsgaebel.compass.sports.domain.League;
-import com.nilsgaebel.compass.sports.domain.Player;
-import com.nilsgaebel.compass.sports.domain.Standing;
-import com.nilsgaebel.compass.sports.domain.Team;
+import com.compass.sports.domain.Event;
+import com.compass.sports.domain.League;
+import com.compass.sports.domain.Player;
+import com.compass.sports.domain.Standing;
+import com.compass.sports.domain.Team;
 import jakarta.enterprise.context.ApplicationScoped;
 
 // Single place that translates raw TheSportsDB payloads into our domain records.

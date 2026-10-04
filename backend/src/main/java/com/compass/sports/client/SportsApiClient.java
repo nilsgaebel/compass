@@ -1,4 +1,4 @@
-package com.nilsgaebel.compass.sports.client;
+package com.compass.sports.client;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

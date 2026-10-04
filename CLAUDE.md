@@ -26,7 +26,7 @@ deploy/               Kustomize mit base/ und overlays/local, ArgoCD (geplant)
 
 ## Backend
 
-Package `com.nilsgaebel.compass.<modul>`, bisher nur `sports`. Jedes Modul hat
+Package `com.compass.<modul>`, bisher nur `sports`. Jedes Modul hat
 dieselben Schichten, Abhängigkeiten zeigen nach innen:
 
 - `rest/` – HTTP-Grenze, dünn, validiert und delegiert

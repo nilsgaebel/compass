@@ -1,7 +1,7 @@
-package com.nilsgaebel.compass.sports.rest;
+package com.compass.sports.rest;
 
-import com.nilsgaebel.compass.sports.domain.Team;
-import com.nilsgaebel.compass.sports.service.TeamService;
+import com.compass.sports.domain.Team;
+import com.compass.sports.service.TeamService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

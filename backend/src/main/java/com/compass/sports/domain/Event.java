@@ -1,4 +1,4 @@
-package com.nilsgaebel.compass.sports.domain;
+package com.compass.sports.domain;
 
 // Scores are null for a fixture that hasn't been played yet.
 public record Event(

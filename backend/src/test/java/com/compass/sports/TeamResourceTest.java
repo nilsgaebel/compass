@@ -1,4 +1,4 @@
-package com.nilsgaebel.compass.sports;
+package com.compass.sports;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;

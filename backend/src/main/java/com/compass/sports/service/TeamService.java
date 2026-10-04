@@ -1,13 +1,13 @@
-package com.nilsgaebel.compass.sports.service;
+package com.compass.sports.service;
 
-import com.nilsgaebel.compass.sports.client.EventResponse;
-import com.nilsgaebel.compass.sports.client.PlayerResponse;
-import com.nilsgaebel.compass.sports.client.SportsApiClient;
-import com.nilsgaebel.compass.sports.client.SportsMapper;
-import com.nilsgaebel.compass.sports.client.TheSportsDbResponse;
-import com.nilsgaebel.compass.sports.domain.Event;
-import com.nilsgaebel.compass.sports.domain.Player;
-import com.nilsgaebel.compass.sports.domain.Team;
+import com.compass.sports.client.EventResponse;
+import com.compass.sports.client.PlayerResponse;
+import com.compass.sports.client.SportsApiClient;
+import com.compass.sports.client.SportsMapper;
+import com.compass.sports.client.TheSportsDbResponse;
+import com.compass.sports.domain.Event;
+import com.compass.sports.domain.Player;
+import com.compass.sports.domain.Team;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.rest.client.inject.RestClient;

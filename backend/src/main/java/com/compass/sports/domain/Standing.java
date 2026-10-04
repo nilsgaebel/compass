@@ -1,4 +1,4 @@
-package com.nilsgaebel.compass.sports.domain;
+package com.compass.sports.domain;
 
 public record Standing(
         int rank,

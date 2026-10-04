@@ -1,4 +1,4 @@
-package com.nilsgaebel.compass.sports.client;
+package com.compass.sports.client;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
