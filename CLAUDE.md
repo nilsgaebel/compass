@@ -11,7 +11,8 @@ Portfolio-Projekt zum Lernen von Cloud und KI. Zeitbudget: 2–4 h/Woche.
 - Erkläre bei neuen Konzepten (React, Kubernetes) kurz, was neu ist und warum.
 - Eine Aufgabe = ein Branch = ein Pull Request. `main` bleibt lauffähig.
 - Pro Endpunkt mindestens ein Test.
-- Nichts löschen, umbenennen oder pushen ohne ausdrückliche Freigabe.
+- Nichts löschen, umbenennen oder pushen ohne ausdrückliche Freigabe. Ausnahme:
+  Gemergte Branches dürfen lokal gelöscht werden, GitHub löscht sie automatisch.
 - Harte Randbedingung: Alles, was Compass im Betrieb braucht, ist kostenlos und
   möglichst Open Source. Keine kostenpflichtigen Cloud-Dienste.
 
