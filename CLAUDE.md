@@ -1,7 +1,7 @@
 # Compass
 
 Persönliches Dashboard im Browser (Sport, Tech/KI-News, Finanzen), mobil und am PC.
-Portfolio-Projekt von Nils zum Lernen von Cloud und KI. Zeitbudget: 2–4 h/Woche.
+Portfolio-Projekt zum Lernen von Cloud und KI. Zeitbudget: 2–4 h/Woche.
 
 ## Arbeitsweise
 
