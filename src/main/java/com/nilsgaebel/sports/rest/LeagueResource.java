@@ -22,6 +22,11 @@ public class LeagueResource {
     }
 
     @GET
+    public Response all() {
+        return Response.ok(leagueService.allLeagues()).build();
+    }
+
+    @GET
     @Path("/{id}/table")
     public Response table(@PathParam("id") String id, @QueryParam("season") String season) {
         if (id == null || id.isBlank()) {

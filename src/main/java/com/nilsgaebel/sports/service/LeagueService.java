@@ -1,8 +1,10 @@
 package com.nilsgaebel.sports.service;
 
+import com.nilsgaebel.sports.client.LeagueResponse;
 import com.nilsgaebel.sports.client.SportsApiClient;
 import com.nilsgaebel.sports.client.SportsMapper;
 import com.nilsgaebel.sports.client.TableResponse;
+import com.nilsgaebel.sports.domain.League;
 import com.nilsgaebel.sports.domain.Standing;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -29,5 +31,13 @@ public class LeagueService {
             return List.of();
         }
         return response.table().stream().map(mapper::toStanding).toList();
+    }
+
+    public List<League> allLeagues() {
+        LeagueResponse response = client.allLeagues();
+        if (response == null || response.leagues() == null) {
+            return List.of();
+        }
+        return response.leagues().stream().map(mapper::toLeague).toList();
     }
 }

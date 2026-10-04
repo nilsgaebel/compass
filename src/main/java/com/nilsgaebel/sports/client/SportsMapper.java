@@ -1,6 +1,7 @@
 package com.nilsgaebel.sports.client;
 
 import com.nilsgaebel.sports.domain.Event;
+import com.nilsgaebel.sports.domain.League;
 import com.nilsgaebel.sports.domain.Player;
 import com.nilsgaebel.sports.domain.Standing;
 import com.nilsgaebel.sports.domain.Team;
@@ -31,6 +32,10 @@ public class SportsMapper {
                 toIntOrZero(p.intWin()), toIntOrZero(p.intDraw()), toIntOrZero(p.intLoss()),
                 toIntOrZero(p.intGoalsFor()), toIntOrZero(p.intGoalsAgainst()),
                 toIntOrZero(p.intGoalDifference()), toIntOrZero(p.intPoints()));
+    }
+
+    public League toLeague(LeagueResponse.LeaguePayload p) {
+        return new League(p.idLeague(), p.strLeague(), p.strSport(), p.strLeagueAlternate());
     }
 
     // TheSportsDB sends numbers as strings, often empty.

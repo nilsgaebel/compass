@@ -35,4 +35,12 @@ public interface SportsApiClient {
     @GET
     @Path("/lookuptable.php")
     TableResponse leagueTable(@QueryParam("l") String leagueId, @QueryParam("s") String season);
+
+    @GET
+    @Path("/all_leagues.php")
+    LeagueResponse allLeagues();
+
+    @GET
+    @Path("/lookupevent.php")
+    EventResponse lookupEventById(@QueryParam("id") String eventId);
 }
